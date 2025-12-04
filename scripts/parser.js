@@ -41,6 +41,9 @@ export function parseProjects(spreadsheetRows) {
 		// If there are multiple websites, take the first.
 		project.website = project.website?.split('\n')[0];
 		
+		// Convert owner(s) list to array.
+		project.owners = splitOwnersString(project.owners || '');
+		
 		projects.push(project);
 	});
 	
@@ -73,4 +76,20 @@ function parseProject(spreadsheetRow, columnLetters) {
 		project[field] = spreadsheetRow[columnLetters[field]];
 	}
 	return project;
+}
+
+/**
+ * Convert owner(s) list to array and un-reverse "X, City of" entries.
+ * @param {String} ownersString
+ * @returns {Array<String>}
+ */
+function splitOwnersString(ownersString) {
+	// If this was already parsed to an array (copied from a previous row), skip.
+	if (Array.isArray(ownersString)) { return ownersString }
+	
+	return ownersString
+		// First, extract and un-reverse entries in quotes.
+		.replaceAll(/"(.+?)"/g, (match, captGroup) => captGroup.split(', ').reverse().join(' '))
+		// Then, any other comma should be separating entries.
+		.split(', ');
 }

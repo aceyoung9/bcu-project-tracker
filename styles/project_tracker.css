@@ -1,0 +1,72 @@
+:root {
+	color-scheme: light dark;
+}
+
+#error-message {
+	color: darkred;
+}
+#projects details {
+	
+	margin-block-end: 1rem;
+	
+	summary {
+		display: grid;
+		grid-template-columns: 1fr min-content;
+	}
+	
+	summary::after {
+		content: '⮟';
+		font-size: smaller;
+		text-align: center;
+		cursor: pointer;
+		transition: transform var(--ui-transition-duration);
+	}
+	&:open summary::after {
+		transform: rotateZ(180deg);
+	}
+	
+	h3 {
+		margin: 0;
+	}
+	
+	a {
+		text-decoration: none;
+	}
+	
+	progress {
+		grid-column: 1 / -1;
+		width: 100%;
+		height: 1.5rem;
+		
+		accent-color: var(--color-bcu-blue);
+		
+		@media (prefers-color-scheme: dark) {
+			accent-color: var(--color-blue);
+		}
+		&.good {
+			accent-color: var(--color-green);
+		}
+		&.bad {
+			accent-color: var(--color-red);
+		}
+	}
+	
+	dl {
+		display: inline-grid;
+		grid-template-columns: auto auto;
+		align-items: baseline;
+	}
+	dt {
+		font-size: smaller;
+		font-weight: bold;
+	}
+	dd {
+		margin-inline-start: 1rem;
+	}
+}
+
+footer {
+	font-size: smaller;
+	text-align: center;
+	margin-block-start: 1rem;
+}

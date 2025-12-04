@@ -56,17 +56,28 @@ function generateProjectHTML(project) {
 		<summary>
 			<h3>${project.title}${project.section ? ` &ndash; ${project.section}` : ''}</h3>
 			${project.website && project.website !== 'N/A' ? `<a href="${project.website}" target="_blank">🌐</a>`: ''}
-			<progress min="0" max="7" value="${STATUS_NUMBER_MAP[project.status]}"></progress>
+			<progress
+				max="${STATUS_NUMBER_MAP['Complete']}"
+				value="${STATUS_NUMBER_MAP[project.status]}"
+				${['Partially undone', 'Undone'].includes(project.status) ? 'class="bad"' : ''}
+				${['Under construction', 'Complete'].includes(project.status) ? 'class="good"' : ''}></progress>
 			<small class="project-status-text">${project.status}</small>
 		</summary>
-		<ul>
-			<li>City/Boston Neighborhood: ${project.cityOrNeighborhood}</li>
-			<li>Owner: ${project.owners}</li>
-			<li>Designer: ${project.designer}</li>
-			<li>Constructor: ${project.constructor}</li>
-			<li>Est. Construction Start: ${project.constructionStartDate}</li>
-			<li>Est. Completion: ${project.completionDate}</li>
-			<li>Point(s) Of Contact: ${project.contacts}</li>
-		</ul>
+		<dl>
+			<dt>City/Boston Neighborhood</dt>
+			<dd>${project.cityOrNeighborhood}</dd>
+			<dt>Owner</dt>
+			<dd>${project.owners.join('; ')}</dd>
+			<dt>Designer</dt>
+			<dd>${project.designer}</dd>
+			<dt>Constructor</dt>
+			<dd>${project.constructor}</dd>
+			<dt>Est. Construction Start</dt>
+			<dd>${project.constructionStartDate}</dd>
+			<dt>Est. Completion</dt>
+			<dd>${project.completionDate}</dd>
+			<dt>Point(s) Of Contact</dt>
+			<dd>${project.contacts}</dd>
+		</dl>
 	</details>`;
 }
